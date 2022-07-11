@@ -2,9 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import store from './store'
-
 import App from './App.vue'
-
 import './assets/css/tailwind.css'
 
 Vue.config.productionTip = false
@@ -36,11 +34,6 @@ const router = new Router({
       path: '/detail/:id',
       name: 'detailId',
       component: () => import('./components/Detail.vue')
-    },
-    {
-      path: '/setting',
-      name: 'setting',
-      component: () => import('./components/Setting.vue')
     }
   ]
 })

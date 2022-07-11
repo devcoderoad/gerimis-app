@@ -3,7 +3,7 @@
     <div class="text-sm text-center mt-6">
       View source code at
       <a
-        href="https://github.com/dyarfi/gerimis-app"
+        href="https://github.com/devcoderoad/gerimis-app"
         rel="nofollow"
         class="font-bold underline hover:no-underline"
         >GitHub</a

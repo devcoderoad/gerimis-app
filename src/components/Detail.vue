@@ -1,18 +1,5 @@
 <template>
   <div class="wrapper-light">
-    <div class="decks">
-      <div class="mb-4 py-2">
-        <router-link to="/dashboard">
-          <ph-caret-left
-            class="mr-2"
-            :size="24"
-            color="#ffffff"
-            weight="regular"
-          />
-        </router-link>
-      </div>
-    </div>
-    <!-- {{ city.status }} -->
     <div v-if="city" class="decks">
       <div v-if="!detail">
         <div class="container">
@@ -27,7 +14,11 @@
                   }}
                 </h6>
                 <img
-                  :src="`${API_OMAP_BASE}img/wn/${city.weather[0].icon}@2x.png`"
+                  :src="
+                    `${API_OMAP_BASE}img/wn/${city.weather &&
+                      city.weather[0] &&
+                      city.weather[0].icon}@2x.png`
+                  "
                   width="120"
                 />
               </div>
@@ -70,7 +61,6 @@
           <h6 class="text-left text-white mt-3">News</h6>
           <slot v-if="news.status === 'loading'">
             <div class="mx-auto text-center mt-2">
-              <!-- {{ news.status }}... -->
               <ph-spinner
                 :size="42"
                 color="#ffffff"
@@ -119,8 +109,6 @@
                   </div>
                   <div class="text-gray-500 font-extralight">
                     <ph-clock-clockwise size="20" class="inline" />
-                    <!-- {{ new Date(item.time * 1000).toDateString() }} -->
-                    <!-- {{ new Date(item.time).toISOString() }} -->
                     {{ formatUnixTime(item.time) }}
                   </div>
                 </div>
@@ -140,7 +128,7 @@
               <a v-on:click="detail = !detail" href="/#/detail"
                 ><ph-caret-left class="mr-2" :size="24" color="#ffffff"
               /></a>
-              <h2 class="card-weather">{{ city.name }}</h2>
+              <h2 class="card-weather w-9/12">{{ city.name }}</h2>
               <div>
                 <router-link
                   to="/dashboard"
@@ -249,7 +237,6 @@
                 <div
                   class="mx-auto text-center h-24 flex align-middle items-center"
                 >
-                  <!-- {{ quote.status }}... -->
                   <ph-spinner
                     :size="42"
                     color="#ffffff"
@@ -350,23 +337,31 @@ export default {
   },
   data({ $store }) {
     const { currentCity } = $store.state
+    const {
+      data: { main: { temp = '', coord = '', weather = [] } = '' } = ''
+    } = currentCity
+
     return {
+      API_OMAP_BASE,
       detail: false,
       formatTemp: true,
       formatText: 'Fahrenheit',
-      temperature: currentCity && currentCity.data.main.temp,
-      API_OMAP_BASE
+      temperature: temp,
+      coord,
+      weather
     }
   },
   methods: {
-    changeDegree(formatTemp) {
-      const { city } = this
-      this.formatTemp = !this.formatTemp
-      if (formatTemp) {
+    changeDegree(formatTempParam) {
+      const { city: { main: { temp = '' } = '' } = '', formatTemp = '' } = this
+
+      this.formatTemp = !formatTemp
+
+      if (formatTempParam) {
         this.temperature = fToC(this.temperature)
         this.formatText = 'Celcius'
       } else {
-        this.temperature = city.main.temp
+        this.temperature = temp
         this.formatText = 'Fahrenheit'
       }
     },
@@ -424,18 +419,23 @@ export default {
     }
   },
   created() {
-    const { $store, $route } = this
-    if ($route.params && $route.params.id) {
+    const { $store, $route: { params: { id = '' } } = '' } = this
+
+    if (id) {
       const city = {
-        ...$store.state.cities.find(city => city.id === $route.params.id)
+        ...$store.state.cities.find(city => city.id === id)
       }
-      if (city.coord) {
+
+      const { coord = '', coord: { lat = '', lon = '' } = '' } = city
+
+      if (coord) {
         $store.dispatch('getCurrentCity', {
-          lat: city.coord.lat,
-          long: city.coord.lon
+          lat,
+          long: lon
         })
       }
     }
+
     $store.dispatch('getNews')
     $store.dispatch('getQuote')
   }

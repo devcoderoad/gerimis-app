@@ -53,7 +53,7 @@ body {
 
 .card-weather {
   text-shadow: 0px 12.6923px 21.1538px rgba(31, 36, 75, 0.25);
-  @apply font-bold text-2xl capitalize;
+  @apply font-bold text-xl capitalize whitespace-nowrap overflow-x-auto overflow-y-hidden;
 }
 
 .card-detail {

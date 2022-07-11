@@ -36,14 +36,6 @@
       </slot>
     </div>
     <div class="w-10/12 sm:w-1/4 md:w-1/2 mx-auto mt-8 mb-6 text-left">
-      <!-- <router-link to="/setting" class="flex flex-row font-bold mb-4">
-        <ph-gear class="mr-2" :size="20" color="#ffffff" weight="fill" />
-        Settings
-      </router-link> -->
-      <a href="#" class="flex flex-row font-bold mb-4"
-        ><ph-gear class="mr-2" :size="20" color="#ffffff" weight="fill" />
-        Settings</a
-      >
       <a
         href="https://www.twitter.com/share?url=https://gerimis-app.vercel.app/#/"
         class="flex flex-row font-bold mb-4"
@@ -52,10 +44,6 @@
         ><ph-gear class="mr-2" :size="20" color="#ffffff" weight="fill" />
         Share this app
       </a>
-      <!-- <a href="/" class="flex flex-row font-bold mb-4"
-        ><ph-gear class="mr-2" :size="20" color="#ffffff" weight="fill" /> Rate
-        this app</a
-      > -->
     </div>
     <Footer />
   </div>

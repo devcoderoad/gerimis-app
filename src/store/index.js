@@ -12,8 +12,6 @@ import {
 } from '@/constants/env'
 
 import { jsonParse } from '@/utils'
-// import { fToC, cToF } from '@/utils'
-// import { fToC } from '@/utils'
 
 const { INIT, LOADING, SUCCESS, ERROR } = STATUS
 const {
@@ -103,7 +101,7 @@ export default new Vuex.Store({
         commit(GET_SEARCH_CITY_ERR, err.TypeError)
       }
     },
-    async getNews({ commit } /*, params*/) {
+    async getNews({ commit }) {
       try {
         const apiNewsUrl = `${API_NEWS_URL}topstories.json?print=pretty`
         commit(GET_NEWS_LOAD)
@@ -136,7 +134,7 @@ export default new Vuex.Store({
         commit(GET_NEWS_ERR, err.TypeError)
       }
     },
-    async getQuote({ commit } /*.params */) {
+    async getQuote({ commit }) {
       try {
         const url = `${API_QUOTE_URL}random`
         commit(GET_QUOTE_LOAD)
@@ -177,9 +175,6 @@ export default new Vuex.Store({
       }
     },
     [SET_TEMP](state, payload) {
-      // console.log(payload)
-      // console.log(state)
-      // state.setup.temp = payload
       state.setup.temp = payload
     },
     [GET_CURRENT_CITY_LOAD](state) {
