@@ -17,7 +17,7 @@
           >Phosphor Icons
         </a>
       </div>
-      <div class="text-sm">
+      <div>
         Read about
         <a
           href="https://medium.com/javascript-in-plain-english/how-to-build-vuejs-geo-location-weather-application-f65f5cc2fa4f"
